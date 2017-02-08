@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE, FETCH_PICTURES, FETCH_USER, LIKE_PIC } from './types';
 
 const ROOT_URL = 'https://pinterest-clone-api.herokuapp.com';
@@ -19,7 +19,7 @@ export function signinUser( { email, password }) {
         localStorage.setItem('username', response.data.username);
         localStorage.setItem('id', response.data.id)
         // -redirect to the route '/feature'
-        browserHistory.push('/')
+        hashHistory.push('/')
       })
       .catch(() => {
         // If request is bad...
@@ -35,7 +35,9 @@ export function signupUser({email, password, username}) {
       .then(response => {
         dispatch({ type: AUTH_USER})
         localStorage.setItem('token', response.data.token);
-        browserHistory.push('/')
+        localStorage.setItem('username', response.data.username);
+        localStorage.setItem('id', response.data.id)
+        hashHistory.push('/')
       })
       .catch(error => dispatch(authError(error.response.data.error)));
 

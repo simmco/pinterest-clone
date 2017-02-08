@@ -8,27 +8,43 @@ import {
   StepLabel,
   StepContent,
 } from 'material-ui/Stepper';
+import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import {Card, CardMedia, CardTitle } from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
+import FontIcon from 'material-ui/FontIcon';
+import {red500} from 'material-ui/styles/colors';
 
 
 const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 250,
-    height: 200,
+  card: {
+    height: '80%',
     overflowY: 'auto',
-    margin: '0 auto'
+    margin: '10px',
+    padding: '10px',
+    backgroundColor: '#FAFAFA'
   },
+  media: {
+    padding: '5px',
+
+  },
+  title: {
+    textAlign: 'left',
+    flex: 1
+  },
+  icon: {
+    fontSize: '35px',
+    paddingTop: '15px',
+    paddingRight: '10px',
+    cursor: 'pointer'
+  },
+  likes: {
+    paddingRight: '7px',
+    fontWeight: '400',
+    fontSize: '22px'
+  }
 };
 
 class AddPicture extends Component {
@@ -125,7 +141,7 @@ class AddPicture extends Component {
             <StepLabel>Upload Picture</StepLabel>
             <StepContent>
               <p>This is how your picture will look like:</p>
-              <GridList
+              {/* <GridList
                 cellHeight={180}
                 style={styles.gridList}
               >
@@ -137,7 +153,29 @@ class AddPicture extends Component {
               >
                 <img src={this.state.url} />
               </GridTile>
-            </GridList>
+            </GridList> */}
+            <Card style={styles.card}>
+              <CardMedia style={styles.media}>
+                <img src={this.state.url} role="presentation"/>
+              </CardMedia>
+
+              <div style={{display: 'flex'}}>
+                <CardTitle style={styles.title} title={this.state.title} />
+                <p style={styles.likes}>0</p>
+                <FontIcon className="material-icons"
+                          style={styles.icon} color={red500}>
+                          favorite_border
+                </FontIcon>
+              </div>
+
+              <Chip
+                style={{margin: 4, cursor: 'pointer'}}
+                onClick={this.userClick}
+              >
+                <Avatar icon={<FontIcon className="material-icons">perm_identity</FontIcon>} />
+                {this.state.username}
+              </Chip>
+            </Card>
               {this.renderStepActions(1)}
             </StepContent>
           </Step>
@@ -151,8 +189,8 @@ class AddPicture extends Component {
                 this.setState({stepIndex: 0, finished: false});
               }}
             >
-              Click here
-            </a> to reset the example.
+              Upload
+            </a> new Picture.
           </p>
         )}
       </div>
