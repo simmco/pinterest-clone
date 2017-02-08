@@ -39,27 +39,39 @@ const styles = {
 }
 
 class PicCard extends Component {
-  state = { liked: false }
+  state = { liked: false,
+            usersPic: false}
 
   componentWillMount = () => {
-    var test = localStorage.getItem('id');
+    var localId = localStorage.getItem('id');
+    var localUser = localStorage.getItem('username');
     var id = this.props.likedPics;
-    if(id.indexOf(test) !== -1) {
+    if(id.indexOf(localId) !== -1) {
       this.setState({liked: true})
-    } else {}
+    }
+    if(localUser === this.props.poster.username) {
+      this.setState({userPics: true})
+    }
   }
   handleLike = () => {
-    var test = localStorage.getItem('id');
-    if(test){
+    var localId = localStorage.getItem('id');
+    if(localId){
       this.props.handleLike(this.props._id);
       var id = this.props.likedPics;
-      if(id.indexOf(test) !== -1) {
+      if(id.indexOf(localId) !== -1) {
         this.setState({liked: false})
       } else {
         this.setState({liked: true})
       }
     }
 
+  }
+  handleDelete = () => {
+    console.log(this.props)
+    var userId = this.props.poster._id;
+    var picId = this.props._id;
+    console.log(userId, picId);
+    this.props.handleDelete(userId, picId)
   }
   userClick = () => {
     this.props.userClick(this.props.poster._id)
@@ -76,18 +88,27 @@ class PicCard extends Component {
           <p style={styles.likes}>{this.props.likes}</p>
           <FontIcon onClick={this.handleLike}
                     className="material-icons"
-                    style={styles.icon} color={red500}>
+                    style={styles.icon} color={this.state.liked && red500}>
                     {this.state.liked ? "favorite" : "favorite_border" }
           </FontIcon>
         </div>
 
+        <div style={{display: 'flex'}}>
+          <div style={{flex: 1}}>
         <Chip
-          style={{margin: 4, cursor: 'pointer'}}
+          style={{margin: 10, cursor: 'pointer'}}
           onClick={this.userClick}
         >
           <Avatar icon={<FontIcon className="material-icons">perm_identity</FontIcon>} />
           {this.props.poster.username}
         </Chip>
+        </div>
+        {this.state.userPics && <FontIcon onClick={this.handleDelete}
+                  className="material-icons"
+                  style={styles.icon}>
+                  delete_forever
+        </FontIcon>}
+        </div>
       </Card>
     )
   }

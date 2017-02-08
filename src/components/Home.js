@@ -16,6 +16,7 @@ class Home extends Component {
         <CardList fetchPictures={this.props.fetchPictures}
                   pictures={this.props.pictures}
                   likePicture={this.props.likePicture}
+                  handleDelete={this.props.deletePicture}
                   userClicked={this.props.fetchUser}/>
       </div>
     );

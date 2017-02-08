@@ -141,19 +141,6 @@ class AddPicture extends Component {
             <StepLabel>Upload Picture</StepLabel>
             <StepContent>
               <p>This is how your picture will look like:</p>
-              {/* <GridList
-                cellHeight={180}
-                style={styles.gridList}
-              >
-              <GridTile
-                title={this.state.title}
-                subtitle={<FlatButton><span>by <b>{this.state.username}</b></span></FlatButton>}
-                actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-                cols={2}
-              >
-                <img src={this.state.url} />
-              </GridTile>
-            </GridList> */}
             <Card style={styles.card}>
               <CardMedia style={styles.media}>
                 <img src={this.state.url} role="presentation"/>

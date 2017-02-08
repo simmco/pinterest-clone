@@ -1,4 +1,4 @@
-import { FETCH_PICTURES, FETCH_USER, LIKE_PIC } from '../actions/types';
+import { FETCH_PICTURES, FETCH_USER, LIKE_PIC, DELETE_PIC } from '../actions/types';
 
 export default function(state = [], action) {
   switch (action.type) {
@@ -13,6 +13,11 @@ export default function(state = [], action) {
         }
         return pic;
       });
+    case DELETE_PIC:
+      console.log(action.payload)
+      return state.filter(pic => {
+        return pic._id !== action.payload
+      })
     default:
       return state;
   }

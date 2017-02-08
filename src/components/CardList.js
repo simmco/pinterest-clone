@@ -20,6 +20,9 @@ class Grid extends Component {
   handleLike = (id) => {
     this.props.likePicture(id);
   }
+  handleDelete = (picId, userId) => {
+    this.props.handleDelete(picId, userId)
+  }
   userClick = (user) => {
     this.props.userClicked(user);
   }
@@ -30,6 +33,7 @@ class Grid extends Component {
               <PicCard key={pic._id}
                        handleLike={this.handleLike}
                        userClick={this.userClick}
+                       handleDelete={this.handleDelete}
                        {...pic}/>
           ))}
       </div>

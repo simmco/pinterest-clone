@@ -6,3 +6,4 @@ export const FETCH_PICTURES = 'fetch_pictures';
 export const FETCH_USER = 'fetch_user';
 export const LIKE_PIC = 'like_pic';
 export const UNLIKE_PIC = 'unlike_pic';
+export const DELETE_PIC = 'delete_pic';

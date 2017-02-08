@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { hashHistory } from 'react-router';
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE, FETCH_PICTURES, FETCH_USER, LIKE_PIC } from './types';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE, FETCH_PICTURES, FETCH_USER, LIKE_PIC, DELETE_PIC } from './types';
 
 const ROOT_URL = 'https://pinterest-clone-api.herokuapp.com';
 
@@ -12,7 +12,9 @@ export function signinUser( { email, password }) {
       .then(response => {
         // If request is good...
         // - Update state to indicate user is authenticated
-        dispatch({ type: AUTH_USER })
+        dispatch({ type: AUTH_USER,
+                   payload: response.data.username
+                 })
         // - Save the JWT token
         console.log(response.data)
         localStorage.setItem('token', response.data.token);
@@ -128,6 +130,24 @@ export function likePicture(id) {
           type: LIKE_PIC,
           payload: response.data.pic,
           user: response.data.user
+        })
+      })
+  }
+}
+
+export function deletePicture(userId, picId) {
+  console.group('deletePicture');
+  console.log('picId: ' + picId)
+  console.log('userId: ' + userId)
+  console.groupEnd()
+  return function(dispatch) {
+    axios.post(`${ROOT_URL}/api/picture/${picId}/delete`, {userId}, {
+      headers: { authorization: localStorage.getItem('token') }
+    })
+      .then(response => {
+        dispatch({
+          type: DELETE_PIC,
+          payload: response.data.picId
         })
       })
   }
