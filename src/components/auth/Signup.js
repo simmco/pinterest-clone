@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
-import { Card, CardText } from 'material-ui/Card';
+import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
+
+let styles = {
+  container: {
+    margin: '0 auto',
+    textAlign: 'center',
+    maxWidth: '700px'
+  },
+  cardHeading: {
+    padding: '16px'
+  },
+  fieldLine: {
+    padding: '16px'
+  },
+  buttonLine: {
+    padding: '16px'
+  },
+  errorMessage: {
+    padding: '0 16px',
+    color: 'tomato'
+  }
+}
+
 
 class Signup extends Component {
   handleFormSubmit(formProps) {
     this.props.signupUser(formProps);
   }
   render() {
-    const { handleSubmit, fields: { email, password, passwordConfirm }, errorMessage} = this.props;
+    const { handleSubmit, fields: { email, password, passwordConfirm, username }, errorMessage} = this.props;
     return (
       <Card style={styles.container}>
         <h2 style={styles.cardHeading}>Sign up</h2>
@@ -22,6 +44,13 @@ class Signup extends Component {
               name="email"
               {...email} />
             {email.touched && email.error && <div>{email.error}</div>}
+          </div>
+          <div style={styles.fieldLine}>
+            <TextField
+              floatingLabelText="Username"
+              name="username"
+              {...username} type="text"/>
+            {/* {password.touched && password.error && <div>{password.error}</div>} */}
           </div>
           <div style={styles.fieldLine}>
             <TextField
@@ -75,27 +104,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'signup',
-  fields: ['email', 'password', 'passwordConfirm'],
+  fields: ['email', 'username', 'password', 'passwordConfirm'],
   validate
 }, mapStateToProps, actions)(Signup);
-
-let styles = {
-  container: {
-    margin: '0 auto',
-    textAlign: 'center',
-    maxWidth: '700px'
-  },
-  cardHeading: {
-    padding: '16px'
-  },
-  fieldLine: {
-    padding: '16px'
-  },
-  buttonLine: {
-    padding: '16px'
-  },
-  errorMessage: {
-    padding: '0 16px',
-    color: 'tomato'
-  }
-}

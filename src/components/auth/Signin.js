@@ -6,6 +6,28 @@ import TextField from 'material-ui/TextField';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
+
+let styles = {
+  container: {
+    margin: '0 auto',
+    textAlign: 'center',
+    maxWidth: '700px'
+  },
+  cardHeading: {
+    padding: '16px'
+  },
+  fieldLine: {
+    padding: '16px'
+  },
+  buttonLine: {
+    padding: '16px'
+  },
+  errorMessage: {
+    padding: '0 16px',
+    color: 'tomato'
+  }
+}
+
 class Signin extends Component {
   handleFormSubmit({ email, password }) {
     // Need to do something to log user in
@@ -50,24 +72,3 @@ export default reduxForm({
   form: 'signin',
   fields: ['email', 'password']
 }, mapStateToProps, actions)(Signin);
-
-let styles = {
-  container: {
-    margin: '0 auto',
-    textAlign: 'center',
-    maxWidth: '700px'
-  },
-  cardHeading: {
-    padding: '16px'
-  },
-  fieldLine: {
-    padding: '16px'
-  },
-  buttonLine: {
-    padding: '16px'
-  },
-  errorMessage: {
-    padding: '0 16px',
-    color: 'tomato'
-  }
-}

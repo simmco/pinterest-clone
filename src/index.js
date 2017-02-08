@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
 
 import App from './components/App';
@@ -13,7 +13,9 @@ import Signout from './components/auth/Signout';
 import Signup from './components/auth/Signup';
 import Feature from './components/Feature';
 import RequireAuth from './components/auth/Require_auth';
-import Welcome from './components/Welcome';
+import Home from './components/Home';
+import AddPicture from './components/AddPicture';
+import MyPicsContainer from './components/MyPicsContainer';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
 import './index.css';
@@ -33,13 +35,17 @@ if(token) {
 ReactDOM.render(
     <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <Router history={browserHistory}>
+      <Router history={hashHistory}>
         <Route path="/" component={App}>
-          <IndexRoute component={Welcome} />
+          <IndexRoute component={Home} />
+          <Route path="all" component={Home} />
           <Route path="signin" component={Signin} />
           <Route path="signout" component={Signout} />
           <Route path="signup" component={Signup} />
           <Route path="feature" component={RequireAuth(Feature)} />
+          <Route path="addpicture" component={RequireAuth(AddPicture)} />
+          <Route path="mypictures" component={RequireAuth(MyPicsContainer)} />
+          <Route path=":id" component={Home} />
         </Route>
       </Router>
     </MuiThemeProvider>
