@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';import { Provider } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
@@ -34,21 +35,21 @@ if(token) {
 
 ReactDOM.render(
     <Provider store={store}>
-    <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <Router history={hashHistory}>
-        <Route path="/" component={App}>
-          <IndexRoute component={Home} />
-          <Route path="all" component={Home} />
-          <Route path="signin" component={Signin} />
-          <Route path="signout" component={Signout} />
-          <Route path="signup" component={Signup} />
-          <Route path="feature" component={RequireAuth(Feature)} />
-          <Route path="addpicture" component={RequireAuth(AddPicture)} />
-          <Route path="mypictures" component={RequireAuth(MyPicsContainer)} />
-          <Route path=":id" component={Home} />
-        </Route>
-      </Router>
-    </MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
+        <Router history={hashHistory}>
+          <Route path="/" component={App}>
+            <IndexRoute component={Home} />
+            <Route path="all" component={Home} />
+            <Route path="signin" component={Signin} />
+            <Route path="signout" component={Signout} />
+            <Route path="signup" component={Signup} />
+            <Route path="feature" component={RequireAuth(Feature)} />
+            <Route path="addpicture" component={RequireAuth(AddPicture)} />
+            <Route path="mypictures" component={RequireAuth(MyPicsContainer)} />
+            <Route path=":id" component={Home} />
+          </Route>
+        </Router>
+      </MuiThemeProvider>
     </Provider>,
   document.getElementById('root')
 );
